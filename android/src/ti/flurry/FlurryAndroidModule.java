@@ -98,7 +98,19 @@ public class FlurryAndroidModule extends KrollModule
 		Log.d(TAG, "initialize called");
 		FlurryAgent.onStartSession(this.getActivity(), key);
 	}
-	
+
+	@Kroll.method
+	public void onEndSession(){
+		Log.d(TAG, "FlurryAndroidModule onEndSession");
+		FlurryAgent.onEndSession(this.getActivity());
+	}
+
+	@Kroll.method
+	public void onError(String errorId, String message, String errorClass){
+		FlurryAgent.onError(errorId, message, errorClass);
+		Log.d(TAG, "logged error: " + errorId + " | " + message + " | " + errorClass);
+	}
+
 	@Kroll.method
 	public void logEvent(Object[] args)
 	{
